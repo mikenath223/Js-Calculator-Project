@@ -1,0 +1,137 @@
+@import url("https://fonts.googleapis.com/css?family=Lobster&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        font-family: "Lobster", cursive;
+        font-size: medium;
+        text-align: center;
+      }
+
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background: -webkit-linear-gradient(
+          left,
+          rgb(146, 53, 134),
+          rgba(172, 127, 42, 0.76)
+        );
+      }
+      .calculator {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        padding: 20px;
+        background-color: slategray;
+        height: 500px;
+        width: 350px;
+        margin: 0 auto;
+        border-top-right-radius: 270px 100px;
+        border-top-left-radius: 270px 100px;
+        border-bottom-right-radius: 35px;
+        border-bottom-left-radius: 35px;
+      }
+      .output {
+        width: 320px;
+        height: 120px;
+        margin: 10px auto;
+        background-color: whitesmoke;
+        border-top-right-radius: 270px 100px;
+        border-top-left-radius: 270px 100px;
+      }
+      .banner {
+        margin: 0 auto;
+      }
+      .banner > p {
+        display: inline-block;
+        padding: 10px;
+        background-color: black;
+        color: white;
+        margin-right: 10px;
+        border-radius: 40px 5px;
+      }
+      .power {
+        background-color: red;
+        color: white;
+        border-style: none;
+        border-radius: 50%;
+        border: 2px dotted wheat;
+        width: 45px;
+        height: 45px;
+        margin-left: 3px;
+        font-family: Arial;
+        font-weight: bold;
+      }
+      header > p {
+        background-color: rgb(22, 37, 65);
+        color: white;
+        margin: 20px;
+        border: 5px solid whitesmoke;
+        word-spacing: 3px;
+      }
+      span {
+        color: red;
+        font-family: sans-serif;
+      }
+      p {
+        color: darkslategray;
+        font-family: "Lobster", cursive;
+        font-size: 20px;
+      }
+      section {
+        width: 400px;
+        height: 550px;
+        margin: 0 auto;
+        border: 2px solid black;
+        background-color: coral;
+        border-top-right-radius: 270px 100px;
+        border-top-left-radius: 270px 100px;
+        border-bottom-right-radius: 35px;
+        border-bottom-left-radius: 35px;
+      }
+
+      #operators {
+        width: 320px;
+        height: 300px;
+        margin: 10px auto;
+        padding: 2px;
+        border: 1px solid black;
+        border-bottom-right-radius: 35px;
+        border-bottom-left-radius: 35px;
+      }
+      
+      #operators > button {
+        flex-basis: auto;
+        background-color: darksalmon;
+        color: white;
+        width: 60px;
+        height: 50px;
+        margin: 4px;
+        font-size: 28px;
+        border-style: none;
+        border: 1px dashed maroon;
+        box-shadow: 1px 2px 30px 1px rgba(0, 0, 0, 0.527);
+      }
+
+      #operators > button:hover {
+        color:green;
+        background-color: whitesmoke;
+      }
+
+      #operators > button:nth-last-child(4) {
+        width: 150px;
+      }
+
+      #operators > button:last-child {
+        width: 250px;
+        height: 63px;
+        border-radius: 50px;
+        background-color: maroon;
+        color:white;
+      }
+
+      #operators > button:last-child:hover {
+        background-color: green;
+      }
