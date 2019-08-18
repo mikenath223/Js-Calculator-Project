@@ -41,6 +41,43 @@
         border-top-right-radius: 270px 100px;
         border-top-left-radius: 270px 100px;
       }
+      .inner{
+        box-sizing: border-box;
+        overflow: hidden;
+        margin-top: 35px;    
+        margin-left: 20px;    
+        border: 1px solid black;
+        width: 280px;
+        height: 35px;
+        background-color: white;
+        font-size: 25px;
+        letter-spacing: 2px;
+        padding-bottom: 5px;
+        text-align: start;
+        padding-left: 10px;
+      }
+      h2 {
+        font-size: 30px;
+        letter-spacing: 4px;
+        text-align: start;
+      }
+
+
+      .result{
+        overflow: hidden;
+        color: red;
+        box-sizing: border-box;
+        height: 35px;
+        width: 280px;
+        margin-left: 20px;
+        border: 2px solid maroon;
+        font-size: 30px;
+        font-family: Arial;
+        font-weight: bold;
+        letter-spacing: 4px;
+        text-align: start;
+        padding-left: 10px;
+      }
       .banner {
         margin: 0 auto;
       }
@@ -64,6 +101,21 @@
         font-family: Arial;
         font-weight: bold;
       }
+
+      .clear {
+        display: none;
+        background-color: black;
+        border-style: none;
+        border-radius: 50%;
+        border: 2px dotted wheat;
+        width: 45px;
+        height: 45px;
+        margin-left: 3px;
+        font-weight: bold;
+        font-family: Arial;
+        font-size: large;
+      }
+
       header > p {
         background-color: rgb(22, 37, 65);
         color: white;
@@ -114,6 +166,12 @@
         border: 1px dashed maroon;
         box-shadow: 1px 2px 30px 1px rgba(0, 0, 0, 0.527);
       }
+    
+      #operators > .op {
+        background-color: rgba(15, 9, 9, 0.719);
+        border-radius: 20px;
+        border: 3px solid red;
+      }
 
       #operators > button:hover {
         color:green;
@@ -128,10 +186,10 @@
         width: 250px;
         height: 63px;
         border-radius: 50px;
-        background-color: maroon;
+        background-color: crimson;
         color:white;
       }
 
       #operators > button:last-child:hover {
-        background-color: green;
+        border:2px solid green;
       }
