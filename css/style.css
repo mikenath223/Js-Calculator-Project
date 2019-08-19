@@ -56,10 +56,11 @@
         text-align: start;
         padding-left: 10px;
       }
-      h2 {
-        font-size: 30px;
-        letter-spacing: 4px;
+      .alert {
+        color: red;
         text-align: start;
+        font-family: monospace;
+        font-weight: bold;
       }
 
 

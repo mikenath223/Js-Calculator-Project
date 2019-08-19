@@ -155,9 +155,20 @@ function updateCollector(arg) {
     result.textContent = arg;
     if (arg === Infinity) {
         setTimeout(() => {
-            result.textContent = "Hey can't divide";
+            result.textContent = "Hey can't divide by 0!";
+            result.style.fontSize = "17px";
             objCollector.num1.splice(0);
         }, 100);
+    }
+    if (isNaN(arg)) {
+        arg1 = 0;
+        arg2 = 0;
+        output.textContent = "One operator a time!";
+        setTimeout(() => {
+            result.innerHTML = "Example(2 x 2)" + "<br>" + "Not(2 x 2 x 2)";
+            result.setAttribute("style", "font-size:11px;font-weight:bold;color:black");
+            objCollector.num1.splice(0);
+        }, 10);
     }
     objCollector.num1.splice(0);
     objCollector.num1.push(arg);
