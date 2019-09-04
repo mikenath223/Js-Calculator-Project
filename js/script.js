@@ -4,6 +4,46 @@ let result = document.querySelector(".result");
 let alert = document.querySelector(".alert");
 let powerON = document.querySelector("#ON");
 let clear = document.querySelector(".clear");
+let divBut = document.getElementById("/");
+let mulBut = document.getElementById("x");
+let plusBut = document.getElementById("+");
+let minusBut = document.getElementById("-");
+let decimalBut = document.getElementById(".");
+
+let operatorsListener = () => {
+    divBut.addEventListener("click", () => {
+        x = divBut.id;
+        let chkEnding = objCollector.num1[objCollector.num1.length - 1];
+        chkEnding === "x" || chkEnding === "/" || chkEnding === "+" || chkEnding === "-" || chkEnding === "." ? "Stop" : pickOperator(x);
+        updateScreen();
+    });
+    mulBut.addEventListener("click", () => {
+        x = mulBut.id;
+        let chkEnding = objCollector.num1[objCollector.num1.length - 1];
+        chkEnding === "x" || chkEnding === "/" || chkEnding === "+" || chkEnding === "-" || chkEnding === "." ? "Stop" : pickOperator(x);
+        updateScreen();
+    });
+    plusBut.addEventListener("click", () => {
+        x = plusBut.id;
+        let chkEnding = objCollector.num1[objCollector.num1.length - 1];
+        chkEnding === "x" || chkEnding === "/" || chkEnding === "+" || chkEnding === "-" || chkEnding === "." ? "Stop" : pickOperator(x);
+        updateScreen();
+    });
+    minusBut.addEventListener("click", () => {
+        x = minusBut.id;
+        let chkEnding = objCollector.num1[objCollector.num1.length - 1];
+        chkEnding === "x" || chkEnding === "/" || chkEnding === "+" || chkEnding === "-" || chkEnding === "." ? "Stop" : pickOperator(x);
+        updateScreen();
+    });
+    decimalBut.addEventListener("click", () => {
+        x = decimalBut.id;
+        let chkEnding = objCollector.num1[objCollector.num1.length - 1];
+        chkEnding === "x" || chkEnding === "/" || chkEnding === "+" || chkEnding === "-" || chkEnding === "." ? "Stop" : pickOperator(x);
+        updateScreen();
+    });
+}
+operatorsListener();
+
 
 let allButtons = Array.from(document.querySelectorAll("button"));
 allButtons.forEach(button => {
@@ -38,17 +78,12 @@ let objCollector = {
     num2: []
 };
 
-let filtered1;
+
+let sliceIndex;
 function pickOperator(x) {
     objCollector.num1.push(x);
-    console.log("Objcollector ", objCollector.num1);
-    objCollector.num1.forEach(item => {
-        if (item == "-" || item == "+" || item == "/" || item == "x") {
-            newItem = objCollector.num1.join("");
-            console.log("newItem ", newItem);
-        }
-    });
 }
+
 
 function buttonEvents() {
     allButtons.forEach(buttText => {
@@ -68,49 +103,124 @@ function buttonEvents() {
                 x = buttText.textContent;
                 pickOperator(x);
                 updateScreen();
-                objCollector.num1.forEach(item => {
-                    if (item == "-" || item == "+" || item == "/" || item == "x") {
-                        filtered1 = newItem.split(`${item}`);
-                        console.log("filtered1 ", filtered1);
-                    }
-                });
-            });
-        } else if (
-            x === "x" ||
-            x === "." ||
-            x === "-" ||
-            x === "+" ||
-            x === "/"
-        ) {
-            buttText.addEventListener("click", () => {
-                x = buttText.textContent;
-                pickOperator(x);
-                updateScreen();
-                objCollector.num1.forEach(item => {
-                    if (item == "-" || item == "+" || item == "/" || item == "x") {
-                        filtered1 = newItem.split(`${item}`);
-                        console.log("filtered1 ", filtered1);
-                    }
-                });
             });
         } else if (x === "Enter") {
-            buttText.addEventListener("click", () => {
-                objCollector.num1.forEach(item => {
-                    if (item == "-" || item == "+" || item == "/" || item == "x") {
-                        filtered1 = newItem.split(`${item}`);
-                        console.log("filtered1 ", filtered1);
-                    }
-                });
-                decider();
-            });
+            buttText.addEventListener("click", runMultipleOperators);
         } else if (x === "AC") {
             buttText.addEventListener("click", () => {
                 objCollector.num1.pop();
-                console.log("obj", objCollector.num1);
                 updateScreen();
             });
         }
     });
+}
+
+
+
+function calculator() {
+    let secondDigit = "";
+    let firstDig;
+
+    let chkMulOperators = "", conditionMul = "single operator detected";//sliceIndex will show where to slice objCollector.num1 from to add new result to the front(use unshift)
+    i = 0;
+    while (true) {
+        if (objCollector.num1[i] == "-" || objCollector.num1[i] == "+" || objCollector.num1[i] == "x" || objCollector.num1[i] == "/") {
+            chkMulOperators += objCollector.num1[i];
+        } else if (chkMulOperators.length > 1) {
+            chkMulOperators = "";
+            conditionMul = "multiple operators detected";
+            break;
+        } else if (i == objCollector.num1.length) {
+            break;
+        }
+        i++;
+    }
+    checkDone();
+
+    function checkDone() {
+        if (conditionMul == "multiple operators detected") {
+
+            multipleOperators();
+        } else {
+            singleOperators();
+        }
+    }
+
+
+    function singleOperators() {
+        firstDig = "";
+        let i = 0;
+        let item = "-" || "+" || "x" || "/";
+        while (true) {
+            if (objCollector.num1[i] == "-" || objCollector.num1[i] == "+" || objCollector.num1[i] == "x" || objCollector.num1[i] == "/") {
+                break;
+            }
+            firstDig += objCollector.num1[i];
+            if (!(objCollector.num1.includes(`${item}`))) {
+                break;
+            }
+            i++;
+        }
+        objCollector.num2[0] = firstDig;
+
+
+
+        secondDigit = "";
+        chkMulOperators = "";
+        let len = objCollector.num1.length;
+        i = 0;
+        while (i < len) {
+            if (chkMulOperators.length === 1) {
+                secondDigit += objCollector.num1[i];
+                sliceIndex = i + 2;
+            }
+            else if (objCollector.num1[i] == "-" || objCollector.num1[i] == "+" || objCollector.num1[i] == "x" || objCollector.num1[i] == "/") {
+                chkMulOperators += objCollector.num1[i];
+            }
+            i++;
+        }
+        objCollector.num2[1] = chkMulOperators[0];
+        objCollector.num2[2] = secondDigit;
+    }
+
+    function multipleOperators() {
+        firstDig = "";
+        let i = 0;
+        let item = "-" || "+" || "x" || "/";
+        while (true) {
+            if (objCollector.num1[i] == "-" || objCollector.num1[i] == "+" || objCollector.num1[i] == "x" || objCollector.num1[i] == "/") {
+                break;
+            }
+            firstDig += objCollector.num1[i];
+            if (!(objCollector.num1.includes(`${item}`))) {
+                break;
+            }
+            i++;
+        }
+        objCollector.num2[0] = firstDig;
+
+
+
+        secondDigit = "";
+        i = 0;
+        while (true) {
+            if (objCollector.num1[i] == "-" || objCollector.num1[i] == "+" || objCollector.num1[i] == "x" || objCollector.num1[i] == "/") {
+                chkMulOperators += objCollector.num1[i];
+                chkOperator = chkMulOperators;
+            }
+            else if (chkMulOperators.length == 1) {
+                secondDigit += objCollector.num1[i];
+            } else if (chkMulOperators.length > 1) {
+                sliceIndex = i;
+                break;
+            }
+            i++;
+        }
+        objCollector.num2[1] = chkMulOperators[0];
+        objCollector.num2[2] = secondDigit;
+    }
+
+    decider();
 }
 
 function updateScreen() {
@@ -121,55 +231,56 @@ function updateScreen() {
 }
 
 function decider(arg1, arg2) {
-    arg1 = +filtered1[0];
-    arg2 = +filtered1[1];
-    if (objCollector.num1.includes("+")) {
+    arg1 = +objCollector.num2[0];
+    arg2 = +objCollector.num2[2];
+    if (objCollector.num2.includes("+")) {
         addOperator(arg1, arg2);
-    } else if (objCollector.num1.includes("-")) {
+    } else if (objCollector.num2.includes("-")) {
         minusOperator(arg1, arg2);
-    } else if (objCollector.num1.includes("x")) {
+    } else if (objCollector.num2.includes("x")) {
         timesOperator(arg1, arg2);
-    } else if (objCollector.num1.includes("/")) {
+    } else if (objCollector.num2.includes("/")) {
         divOperator(arg1, arg2);
     }
 }
 
-let addOperator = (arg1, arg2) => {
+function addOperator(arg1, arg2) {
     let added = arg1 + arg2;
     updateCollector(added);
 };
-let minusOperator = (arg1, arg2) => {
+function minusOperator(arg1, arg2) {
     let subtracted = arg1 - arg2;
     updateCollector(subtracted);
 };
-let timesOperator = (arg1, arg2) => {
+function timesOperator(arg1, arg2) {
     multiplied = arg1 * arg2;
     updateCollector(multiplied);
 };
-let divOperator = (arg1, arg2) => {
+function divOperator(arg1, arg2) {
     let divided = arg1 / arg2;
     updateCollector(divided);
 };
 
 function updateCollector(arg) {
-    result.textContent = arg;
     if (arg === Infinity) {
-        setTimeout(() => {
-            result.textContent = "Hey can't divide by 0!";
-            result.style.fontSize = "17px";
-            objCollector.num1.splice(0);
-        }, 100);
+        result.textContent = "Error";
+        objCollector.num1.splice(0);
     }
-    if (isNaN(arg)) {
-        arg1 = 0;
-        arg2 = 0;
-        output.textContent = "One operator a time!";
-        setTimeout(() => {
-            result.innerHTML = "Example(2 x 2)" + "<br>" + "Not(2 x 2 x 2)";
-            result.setAttribute("style", "font-size:11px;font-weight:bold;color:black");
-            objCollector.num1.splice(0);
-        }, 10);
+    else if (!(isNaN(arg) === true || arg === Infinity)) {
+        objCollector.num1.splice(0, (sliceIndex - 1), arg);
+        result.textContent = arg;
     }
-    objCollector.num1.splice(0);
-    objCollector.num1.push(arg);
+}
+
+
+function runMultipleOperators() {
+    let reg = /[^0-9]/g
+    let i = 0;
+    while (true) {
+        if (!reg.test(objCollector.num1)) {
+            break;
+        }
+        calculator();
+        i++;
+    }
 }
