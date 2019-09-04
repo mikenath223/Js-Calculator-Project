@@ -150,13 +150,13 @@ function calculator() {
     function singleOperators() {
         firstDig = "";
         let i = 0;
-        let item = "-" || "+" || "x" || "/";
+        let reg = /[^0-9]/g
         while (true) {
             if (objCollector.num1[i] == "-" || objCollector.num1[i] == "+" || objCollector.num1[i] == "x" || objCollector.num1[i] == "/") {
                 break;
             }
             firstDig += objCollector.num1[i];
-            if (!(objCollector.num1.includes(`${item}`))) {
+            if (!reg.test(objCollector.num1)) {
                 break;
             }
             i++;
@@ -172,6 +172,7 @@ function calculator() {
         while (i < len) {
             if (chkMulOperators.length === 1) {
                 secondDigit += objCollector.num1[i];
+                console.log(i);
                 sliceIndex = i + 2;
             }
             else if (objCollector.num1[i] == "-" || objCollector.num1[i] == "+" || objCollector.num1[i] == "x" || objCollector.num1[i] == "/") {
@@ -186,20 +187,18 @@ function calculator() {
     function multipleOperators() {
         firstDig = "";
         let i = 0;
-        let item = "-" || "+" || "x" || "/";
+        let reg = /[^0-9]/g;
         while (true) {
             if (objCollector.num1[i] == "-" || objCollector.num1[i] == "+" || objCollector.num1[i] == "x" || objCollector.num1[i] == "/") {
                 break;
             }
             firstDig += objCollector.num1[i];
-            if (!(objCollector.num1.includes(`${item}`))) {
+            if (!reg.test(objCollector.num1)) {
                 break;
             }
             i++;
         }
         objCollector.num2[0] = firstDig;
-
-
 
         secondDigit = "";
         i = 0;
@@ -211,6 +210,7 @@ function calculator() {
             else if (chkMulOperators.length == 1) {
                 secondDigit += objCollector.num1[i];
             } else if (chkMulOperators.length > 1) {
+                console.log(i);
                 sliceIndex = i;
                 break;
             }
@@ -267,6 +267,7 @@ function updateCollector(arg) {
         objCollector.num1.splice(0);
     }
     else if (!(isNaN(arg) === true || arg === Infinity)) {
+        console.log(sliceIndex);
         objCollector.num1.splice(0, (sliceIndex - 1), arg);
         result.textContent = arg;
     }
@@ -281,6 +282,7 @@ function runMultipleOperators() {
             break;
         }
         calculator();
+        console.log(objCollector.num1);
         i++;
     }
 }
