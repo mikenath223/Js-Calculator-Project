@@ -80,6 +80,9 @@ let objCollector = {
 
 
 let sliceIndex;
+let sliceForFirst;
+let sliceForSecond;
+
 function pickOperator(x) {
     objCollector.num1.push(x);
 }
@@ -116,7 +119,7 @@ function buttonEvents() {
 }
 
 
-
+let foundDivIndex, foundMulIndex, foundAddIndex, foundSubIndex;
 function calculator() {
     let secondDigit = "";
     let firstDig;
@@ -185,6 +188,49 @@ function calculator() {
     }
 
     function multipleOperators() {
+        objCollector.num1.forEach((div, ind) => { div === "/" ? foundDivIndex = ind : foundDivIndex; });
+        objCollector.num1.forEach((div, ind) => { div === "x" ? foundMulIndex = ind : foundMulIndex; });
+        objCollector.num1.forEach((div, ind) => { div === "+" ? foundAddIndex = ind : foundAddIndex; });
+        objCollector.num1.forEach((div, ind) => { div === "-" ? foundSubIndex = ind : foundSubIndex; });
+
+        if (foundDivIndex !== undefined) {
+            console.log("found ", foundDivIndex);
+            firstDig = "";
+            let i = foundDivIndex;
+            let reg = /[^0-9]/g;
+            while (true) {
+                if (objCollector.num1[i] == "-" || objCollector.num1[i] == "+" || objCollector.num1[i] == "x" || objCollector.num1[i] == "/") {
+                    sliceForFirst = i + 1;
+                    console.log(i);
+                    break;
+                }
+                firstDig += objCollector.num1[i];
+                if (!reg.test(objCollector.num1)) {
+                    break;
+                }
+                i--;
+            }
+            objCollector.num2[0] = firstDig.split("").reverse().join("");
+
+            secondDigit = "";
+            i = foundDivIndex;
+            while (true) {
+                if (objCollector.num1[i] == "-" || objCollector.num1[i] == "+" || objCollector.num1[i] == "x" || objCollector.num1[i] == "/") {
+                    sliceForSecond = i - 1;
+                    break;
+                }
+                else if (i === (len - 1)) {
+                    break;
+                }
+                secondDigit += objCollector.num1[i];
+                i++;
+            }
+            objCollector.num2[1] = foundDivIndex;
+            objCollector.num2[2] = secondDigit;
+        }
+
+
+
         firstDig = "";
         let i = 0;
         let reg = /[^0-9]/g;
