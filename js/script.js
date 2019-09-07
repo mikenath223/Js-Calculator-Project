@@ -118,89 +118,33 @@ function buttonEvents() {
     });
 }
 
-let conditionMul = "single operator detected";
 let foundDivIndex, foundMulIndex, foundAddIndex, foundSubIndex;
+let secondDigit = "";
+let firstDig;
+let firstDigit;
 function calculator() {
-    let secondDigit = "";
-    let firstDig;
-
-    let chkMulOperators = "";
-    i = 0;
-    while (true) {
-        if (objCollector.num1[i] == "-" || objCollector.num1[i] == "+" || objCollector.num1[i] == "x" || objCollector.num1[i] == "/") {
-            chkMulOperators += objCollector.num1[i];
-        } else if (chkMulOperators.length > 1) {
-            chkMulOperators = "";
-            conditionMul = "multiple operators detected";
-            break;
-        } else if (i == objCollector.num1.length) {
-            break;
-        }
-        i++;
-    }
-    checkDone();
-
-    function checkDone() {
-        if (conditionMul == "multiple operators detected") {
-
-            multipleOperators();
-        } else {
-            singleOperators();
-        }
-    }
-
-
-    function singleOperators() {
-        firstDig = "";
-        let i = 0;
-        let reg = /[^0-9]/g
-        while (true) {
-            if (objCollector.num1[i] == "-" || objCollector.num1[i] == "+" || objCollector.num1[i] == "x" || objCollector.num1[i] == "/") {
-                break;
-            }
-            firstDig += objCollector.num1[i];
-            if (!reg.test(objCollector.num1)) {
-                break;
-            }
-            i++;
-        }
-        objCollector.num2[0] = firstDig;
-
-
-        secondDigit = "";
-        chkMulOperators = "";
-        let len = objCollector.num1.length;
-        i = 0;
-        while (i < len) {
-            if (chkMulOperators.length === 1) {
-                secondDigit += objCollector.num1[i];
-                sliceIndex = i + 2;
-            }
-            else if (objCollector.num1[i] == "-" || objCollector.num1[i] == "+" || objCollector.num1[i] == "x" || objCollector.num1[i] == "/") {
-                chkMulOperators += objCollector.num1[i];
-            }
-            i++;
-        }
-        objCollector.num2[1] = chkMulOperators[0];
-        objCollector.num2[2] = secondDigit;
-        decider();
-    }
+    multipleOperators();
 
     function multipleOperators() {
-        function bodmas() {
-            runDiv();
-            runMul();
-            runAdd();
-            runSub();
-        }
         bodmas();
 
-        foundDivIndex = objCollector.num1.indexOf("/");
-        foundMulIndex = objCollector.num1.indexOf("x");
-        foundAddIndex = objCollector.num1.indexOf("+");
-        foundSubIndex = objCollector.num1.indexOf("-");
+        function bodmas() {
+            for (let i in objCollector.num1) {
+                if (objCollector.num1[i] === "/") {
+                    runDiv();
+                } else if (objCollector.num1[i] === "x") {
+                    runMul();
+                } else if (objCollector.num1[i] === "+") {
+                    runAdd();
+                } else if (objCollector.num1[i] === "-") {
+                    runSub();
+                }
+            }
+        }
+
 
         function runDiv() {
+            foundDivIndex = objCollector.num1.indexOf("/");
             if (foundDivIndex !== undefined && foundDivIndex > -1) {
                 getDigits(foundDivIndex);
                 decider();
@@ -208,6 +152,7 @@ function calculator() {
         }
 
         function runMul() {
+            foundMulIndex = objCollector.num1.indexOf("x");
             if (foundMulIndex !== undefined && foundMulIndex > -1) {
                 getDigits(foundMulIndex);
                 decider();
@@ -215,6 +160,7 @@ function calculator() {
         }
 
         function runAdd() {
+            foundAddIndex = objCollector.num1.indexOf("+");
             if (foundAddIndex !== undefined && foundAddIndex > -1) {
                 getDigits(foundAddIndex);
                 decider();
@@ -222,6 +168,7 @@ function calculator() {
         }
 
         function runSub() {
+            foundSubIndex = objCollector.num1.indexOf("-");
             if (foundSubIndex !== undefined && foundSubIndex > -1) {
                 getDigits(foundSubIndex);
                 decider();
@@ -229,6 +176,7 @@ function calculator() {
         }
 
         function getDigits(foundIndex) {
+            let check = 0;
             let len = objCollector.num1.length;
             firstDig = "";
             let i = foundIndex;
@@ -243,17 +191,20 @@ function calculator() {
                     break;
                 }
                 firstDig += objCollector.num1[i - 1];
+                check++;
 
                 if (!reg.test(objCollector.num1)) {
                     break;
                 }
                 i--;
             }
-            if (!isNaN(firstDig)) {
-                objCollector.num2[0] = firstDig.split("").reverse().join("");
-            } else {
-                objCollector.num2[0] = firstDig;
+
+            if (check > 1) {
+                firstDigit = firstDig.split("").reverse().join("");
+            } else if (check == 1) {
+                firstDigit = firstDig;
             }
+
 
             secondDigit = "";
             i = foundIndex;
@@ -271,8 +222,7 @@ function calculator() {
                 i++;
             }
 
-            objCollector.num2[1] = objCollector.num1[foundIndex];
-            objCollector.num2[2] = secondDigit;
+            objCollector.num2 = objCollector.num1[foundIndex];
         }
 
     }
@@ -280,15 +230,14 @@ function calculator() {
 }
 
 function updateScreen() {
-    let print;
-    print = objCollector.num1.join("");
+    let print = objCollector.num1.join("");
     output.textContent = print;
     result.textContent = "";
 }
 
 function decider(arg1, arg2) {
-    arg1 = +objCollector.num2[0];
-    arg2 = +objCollector.num2[2];
+    arg1 = +firstDigit;
+    arg2 = +secondDigit;
     if (objCollector.num2.includes("+")) {
         addOperator(arg1, arg2);
     } else if (objCollector.num2.includes("-")) {
@@ -317,17 +266,16 @@ function divOperator(arg1, arg2) {
     updateCollector(divided);
 };
 
+let reslt;
 function updateCollector(arg) {
     if (arg === Infinity) {
         result.textContent = "Error";
         objCollector.num1.splice(0);
     }
-    else if (!(isNaN(arg) === true || arg === Infinity) && conditionMul == "single operator detected") {
-        objCollector.num1.splice(0, (sliceIndex - 1), arg);
-        result.textContent = arg;
-    } else if (conditionMul == "multiple operators detected") {
+    else {
         objCollector.num1.splice(sliceForFirst, ((sliceForSecond - sliceForFirst) + 1), arg);
-        result.textContent = arg;
+        reslt = arg;
+        reslt.toString().length > 12 ? result.textContent = Math.round(reslt) : result.textContent = arg;
     }
 }
 
