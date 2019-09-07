@@ -118,13 +118,13 @@ function buttonEvents() {
     });
 }
 
-
+let conditionMul = "single operator detected";
 let foundDivIndex, foundMulIndex, foundAddIndex, foundSubIndex;
 function calculator() {
     let secondDigit = "";
     let firstDig;
 
-    let chkMulOperators = "", conditionMul = "single operator detected";//sliceIndex will show where to slice objCollector.num1 from to add new result to the front(use unshift)
+    let chkMulOperators = "";
     i = 0;
     while (true) {
         if (objCollector.num1[i] == "-" || objCollector.num1[i] == "+" || objCollector.num1[i] == "x" || objCollector.num1[i] == "/") {
@@ -167,7 +167,6 @@ function calculator() {
         objCollector.num2[0] = firstDig;
 
 
-
         secondDigit = "";
         chkMulOperators = "";
         let len = objCollector.num1.length;
@@ -175,7 +174,6 @@ function calculator() {
         while (i < len) {
             if (chkMulOperators.length === 1) {
                 secondDigit += objCollector.num1[i];
-                console.log(i);
                 sliceIndex = i + 2;
             }
             else if (objCollector.num1[i] == "-" || objCollector.num1[i] == "+" || objCollector.num1[i] == "x" || objCollector.num1[i] == "/") {
@@ -185,88 +183,100 @@ function calculator() {
         }
         objCollector.num2[1] = chkMulOperators[0];
         objCollector.num2[2] = secondDigit;
+        decider();
     }
 
     function multipleOperators() {
-        objCollector.num1.forEach((div, ind) => { div === "/" ? foundDivIndex = ind : foundDivIndex; });
-        objCollector.num1.forEach((div, ind) => { div === "x" ? foundMulIndex = ind : foundMulIndex; });
-        objCollector.num1.forEach((div, ind) => { div === "+" ? foundAddIndex = ind : foundAddIndex; });
-        objCollector.num1.forEach((div, ind) => { div === "-" ? foundSubIndex = ind : foundSubIndex; });
+        function bodmas() {
+            runDiv();
+            runMul();
+            runAdd();
+            runSub();
+        }
+        bodmas();
 
-        if (foundDivIndex !== undefined) {
-            console.log("found ", foundDivIndex);
+        foundDivIndex = objCollector.num1.indexOf("/");
+        foundMulIndex = objCollector.num1.indexOf("x");
+        foundAddIndex = objCollector.num1.indexOf("+");
+        foundSubIndex = objCollector.num1.indexOf("-");
+
+        function runDiv() {
+            if (foundDivIndex !== undefined && foundDivIndex > -1) {
+                getDigits(foundDivIndex);
+                decider();
+            }
+        }
+
+        function runMul() {
+            if (foundMulIndex !== undefined && foundMulIndex > -1) {
+                getDigits(foundMulIndex);
+                decider();
+            }
+        }
+
+        function runAdd() {
+            if (foundAddIndex !== undefined && foundAddIndex > -1) {
+                getDigits(foundAddIndex);
+                decider();
+            }
+        }
+
+        function runSub() {
+            if (foundSubIndex !== undefined && foundSubIndex > -1) {
+                getDigits(foundSubIndex);
+                decider();
+            }
+        }
+
+        function getDigits(foundIndex) {
+            let len = objCollector.num1.length;
             firstDig = "";
-            let i = foundDivIndex;
+            let i = foundIndex;
             let reg = /[^0-9]/g;
             while (true) {
-                if (objCollector.num1[i] == "-" || objCollector.num1[i] == "+" || objCollector.num1[i] == "x" || objCollector.num1[i] == "/") {
-                    sliceForFirst = i + 1;
-                    console.log(i);
+                if (objCollector.num1[i - 1] == "-" || objCollector.num1[i - 1] == "+" || objCollector.num1[i - 1] == "x" || objCollector.num1[i - 1] == "/") {
+                    sliceForFirst = i;
                     break;
                 }
-                firstDig += objCollector.num1[i];
+                if (i <= 0) {
+                    sliceForFirst = 0;
+                    break;
+                }
+                firstDig += objCollector.num1[i - 1];
+
                 if (!reg.test(objCollector.num1)) {
                     break;
                 }
                 i--;
             }
-            objCollector.num2[0] = firstDig.split("").reverse().join("");
+            if (!isNaN(firstDig)) {
+                objCollector.num2[0] = firstDig.split("").reverse().join("");
+            } else {
+                objCollector.num2[0] = firstDig;
+            }
 
             secondDigit = "";
-            i = foundDivIndex;
+            i = foundIndex;
             while (true) {
-                if (objCollector.num1[i] == "-" || objCollector.num1[i] == "+" || objCollector.num1[i] == "x" || objCollector.num1[i] == "/") {
-                    sliceForSecond = i - 1;
+                if (objCollector.num1[i + 1] == "-" || objCollector.num1[i + 1] == "+" || objCollector.num1[i + 1] == "x" || objCollector.num1[i + 1] == "/") {
+                    sliceForSecond = i;
                     break;
                 }
                 else if (i === (len - 1)) {
+                    sliceForSecond = i;
                     break;
                 }
-                secondDigit += objCollector.num1[i];
+                secondDigit += objCollector.num1[i + 1];
+
                 i++;
             }
-            objCollector.num2[1] = foundDivIndex;
+
+            objCollector.num2[1] = objCollector.num1[foundIndex];
             objCollector.num2[2] = secondDigit;
         }
 
-
-
-        firstDig = "";
-        let i = 0;
-        let reg = /[^0-9]/g;
-        while (true) {
-            if (objCollector.num1[i] == "-" || objCollector.num1[i] == "+" || objCollector.num1[i] == "x" || objCollector.num1[i] == "/") {
-                break;
-            }
-            firstDig += objCollector.num1[i];
-            if (!reg.test(objCollector.num1)) {
-                break;
-            }
-            i++;
-        }
-        objCollector.num2[0] = firstDig;
-
-        secondDigit = "";
-        i = 0;
-        while (true) {
-            if (objCollector.num1[i] == "-" || objCollector.num1[i] == "+" || objCollector.num1[i] == "x" || objCollector.num1[i] == "/") {
-                chkMulOperators += objCollector.num1[i];
-                chkOperator = chkMulOperators;
-            }
-            else if (chkMulOperators.length == 1) {
-                secondDigit += objCollector.num1[i];
-            } else if (chkMulOperators.length > 1) {
-                console.log(i);
-                sliceIndex = i;
-                break;
-            }
-            i++;
-        }
-        objCollector.num2[1] = chkMulOperators[0];
-        objCollector.num2[2] = secondDigit;
     }
 
-    decider();
 }
 
 function updateScreen() {
@@ -299,7 +309,7 @@ function minusOperator(arg1, arg2) {
     updateCollector(subtracted);
 };
 function timesOperator(arg1, arg2) {
-    multiplied = arg1 * arg2;
+    let multiplied = arg1 * arg2;
     updateCollector(multiplied);
 };
 function divOperator(arg1, arg2) {
@@ -312,23 +322,24 @@ function updateCollector(arg) {
         result.textContent = "Error";
         objCollector.num1.splice(0);
     }
-    else if (!(isNaN(arg) === true || arg === Infinity)) {
-        console.log(sliceIndex);
+    else if (!(isNaN(arg) === true || arg === Infinity) && conditionMul == "single operator detected") {
         objCollector.num1.splice(0, (sliceIndex - 1), arg);
+        result.textContent = arg;
+    } else if (conditionMul == "multiple operators detected") {
+        objCollector.num1.splice(sliceForFirst, ((sliceForSecond - sliceForFirst) + 1), arg);
         result.textContent = arg;
     }
 }
 
 
 function runMultipleOperators() {
-    let reg = /[^0-9]/g
+    let reg = /[^0-9]/g;
     let i = 0;
     while (true) {
         if (!reg.test(objCollector.num1)) {
             break;
         }
         calculator();
-        console.log(objCollector.num1);
         i++;
     }
 }
