@@ -275,7 +275,7 @@ function updateCollector(arg) {
     else {
         objCollector.num1.splice(sliceForFirst, ((sliceForSecond - sliceForFirst) + 1), arg);
         reslt = arg;
-        reslt.toString().length > 12 ? result.textContent = Math.round(reslt) : result.textContent = arg;
+        reslt.toString().length > 12 ? result.textContent = +reslt.toFixed(5) : result.textContent = arg;
     }
 }
 

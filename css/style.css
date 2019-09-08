@@ -15,8 +15,8 @@
         padding: 0;
         background: -webkit-linear-gradient(
           left,
-          rgb(146, 53, 134),
-          rgba(172, 127, 42, 0.76)
+          rgb(165, 7, 144),
+          rgba(155, 20, 27, 0.76)
         );
       }
       .calculator {
@@ -193,4 +193,87 @@
 
       #operators > button:last-child:hover {
         border:2px solid green;
+      }
+
+      
+      @media screen and (max-width:600px) {
+        .calculator {
+        height: 430px;
+        width: 300px;
+        }
+        .output {
+        width: 274px;
+        height: 102px;
+        margin: 8px auto;
+        }
+        .inner {
+        margin-top: 30px;    
+        margin-left: 17px;    
+        width: 240px;
+        height: 30px;
+        font-size: 20px;
+        letter-spacing: 0.5px;
+        padding-bottom: 4px;
+        padding-left: 8.5px;
+        }
+        .result{
+        height: 30px;
+        width: 240px;
+        margin-left: 17px;
+        margin-left: 17px;
+        border: 1.5px solid maroon;
+        font-size: 25.5px;
+        letter-spacing: 3.5px;
+        padding-left: 8.5px;
+        }
+        .banner > p {
+        padding: 8.5px;
+        margin-right: 8.5px;
+        }
+        .power {
+        width: 38px;
+        height: 38px;
+        margin-left: 2.5px;
+        }
+        .clear {
+        width: 38px;
+        height: 38px;
+        margin-left: 2.5px;
+        font-size: medium;
+        }
+        header > p {
+        margin: 17px;
+        border: 4px solid whitesmoke;
+        word-spacing: 2.5px;
+        }
+        p {
+        font-size: 17px;
+        }
+        section {
+        width: 344px;
+        height: 473px;
+        border: 1.5px solid black;
+        }
+        #operators {
+        width: 275px;
+        height: 258px;
+        margin: 8.5px auto;
+        padding: 1.5px;
+        }
+        #operators > button {
+        width: 51px;
+        height: 43px;
+        margin: 3px;
+        font-size: 24px;
+        }
+        #operators > .op {
+        border: 2.5px solid red;
+        }
+        #operators > button:nth-last-child(4) {
+        width: 129px;
+        }
+        #operators > button:last-child {
+        width: 215px;
+        height: 54px;
+        }
       }
