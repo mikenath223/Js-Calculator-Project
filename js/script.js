@@ -128,8 +128,8 @@ function calculator() {
     function multipleOperators() {
         bodmas1();
         bodmas2();
-        bodmas3();
         bodmas4();
+        bodmas3();
 
         function bodmas1() {
             for (let i = 0; i < objCollector.num1.length; i++) {
@@ -167,6 +167,9 @@ function calculator() {
             if (foundDivIndex !== undefined && foundDivIndex > -1) {
                 getDigits(foundDivIndex);
                 decider();
+                console.log(objCollector.num1);
+                console.log(objCollector.num2);
+
             }
         }
 
@@ -175,6 +178,8 @@ function calculator() {
             if (foundMulIndex !== undefined && foundMulIndex > -1) {
                 getDigits(foundMulIndex);
                 decider();
+                console.log(objCollector.num1);
+                console.log(objCollector.num2);
             }
         }
 
@@ -183,6 +188,8 @@ function calculator() {
             if (foundAddIndex !== undefined && foundAddIndex > -1) {
                 getDigits(foundAddIndex);
                 decider();
+                console.log(objCollector.num1);
+                console.log(objCollector.num2);
             }
         }
 
@@ -191,6 +198,8 @@ function calculator() {
             if (foundSubIndex !== undefined && foundSubIndex > -1) {
                 getDigits(foundSubIndex);
                 decider();
+                console.log(objCollector.num1);
+                console.log(objCollector.num2);
             }
         }
 
