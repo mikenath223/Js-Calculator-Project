@@ -126,21 +126,40 @@ function calculator() {
     multipleOperators();
 
     function multipleOperators() {
-        bodmas();
+        bodmas1();
+        bodmas2();
+        bodmas3();
+        bodmas4();
 
-        function bodmas() {
-            for (let i in objCollector.num1) {
+        function bodmas1() {
+            for (let i = 0; i < objCollector.num1.length; i++) {
                 if (objCollector.num1[i] === "/") {
                     runDiv();
-                } else if (objCollector.num1[i] === "x") {
+                }
+            }
+        }
+        function bodmas2() {
+            for (let i = 0; i < objCollector.num1.length; i++) {
+                if (objCollector.num1[i] === "x") {
                     runMul();
-                } else if (objCollector.num1[i] === "+") {
+                }
+            }
+        }
+        function bodmas3() {
+            for (let i = 0; i < objCollector.num1.length; i++) {
+                if (objCollector.num1[i] === "+") {
                     runAdd();
-                } else if (objCollector.num1[i] === "-") {
+                }
+            }
+        }
+        function bodmas4() {
+            for (let i = 0; i < objCollector.num1.length; i++) {
+                if (objCollector.num1[i] === "-") {
                     runSub();
                 }
             }
         }
+
 
 
         function runDiv() {
@@ -275,7 +294,7 @@ function updateCollector(arg) {
     else {
         objCollector.num1.splice(sliceForFirst, ((sliceForSecond - sliceForFirst) + 1), arg);
         reslt = arg;
-        reslt.toString().length > 12 ? result.textContent = +reslt.toFixed(5) : result.textContent = arg;
+        reslt.toString().length > 12 ? result.textContent = reslt : result.textContent = arg;
     }
 }
 
@@ -287,7 +306,9 @@ function runMultipleOperators() {
         if (!reg.test(objCollector.num1)) {
             break;
         }
+        console.log(objCollector.num1);
         calculator();
+        console.log(objCollector.num1);
         i++;
     }
 }
