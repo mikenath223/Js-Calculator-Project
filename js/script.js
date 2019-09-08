@@ -167,9 +167,6 @@ function calculator() {
             if (foundDivIndex !== undefined && foundDivIndex > -1) {
                 getDigits(foundDivIndex);
                 decider();
-                console.log(objCollector.num1);
-                console.log(objCollector.num2);
-
             }
         }
 
@@ -178,8 +175,6 @@ function calculator() {
             if (foundMulIndex !== undefined && foundMulIndex > -1) {
                 getDigits(foundMulIndex);
                 decider();
-                console.log(objCollector.num1);
-                console.log(objCollector.num2);
             }
         }
 
@@ -188,8 +183,6 @@ function calculator() {
             if (foundAddIndex !== undefined && foundAddIndex > -1) {
                 getDigits(foundAddIndex);
                 decider();
-                console.log(objCollector.num1);
-                console.log(objCollector.num2);
             }
         }
 
@@ -198,8 +191,6 @@ function calculator() {
             if (foundSubIndex !== undefined && foundSubIndex > -1) {
                 getDigits(foundSubIndex);
                 decider();
-                console.log(objCollector.num1);
-                console.log(objCollector.num2);
             }
         }
 
@@ -302,8 +293,11 @@ function updateCollector(arg) {
     }
     else {
         objCollector.num1.splice(sliceForFirst, ((sliceForSecond - sliceForFirst) + 1), arg);
-        reslt = arg;
-        reslt.toString().length > 12 ? result.textContent = reslt : result.textContent = arg;
+        let reslt = arg;
+        if (reslt.toString().length > 12) {
+            result.textContent = +reslt.toPrecision(5);
+        }
+        result.textContent = arg;
     }
 }
 
