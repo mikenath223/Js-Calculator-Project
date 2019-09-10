@@ -4,45 +4,41 @@ let result = document.querySelector(".result");
 let alert = document.querySelector(".alert");
 let powerON = document.querySelector("#ON");
 let clear = document.querySelector(".clear");
-let divBut = document.getElementById("/");
-let mulBut = document.getElementById("x");
-let plusBut = document.getElementById("+");
-let minusBut = document.getElementById("-");
-let decimalBut = document.getElementById(".");
+let ops = [...document.querySelectorAll(".op")];
 
-let operatorsListener = () => {
-    divBut.addEventListener("click", () => {
-        x = divBut.id;
-        let chkEnding = objCollector.num1[objCollector.num1.length - 1];
+ops.forEach(item => {
+    const x = item.id;
+    item.addEventListener("click", () => {
+        let chkEnding = objCollector.inputs[objCollector.inputs.length - 1];
         chkEnding === "x" || chkEnding === "/" || chkEnding === "+" || chkEnding === "-" || chkEnding === "." ? "Stop" : pickOperator(x);
         updateScreen();
-    });
-    mulBut.addEventListener("click", () => {
-        x = mulBut.id;
-        let chkEnding = objCollector.num1[objCollector.num1.length - 1];
-        chkEnding === "x" || chkEnding === "/" || chkEnding === "+" || chkEnding === "-" || chkEnding === "." ? "Stop" : pickOperator(x);
+    })
+})
+
+function checkKeyCode(e) {
+    switchOn();
+    let key = document.querySelector(`button[data-key="${e.keyCode}"]`);
+    if (!key) return;
+    if (key.id !== "enter" && key.id !== "ON" && key.id !== "AC" && key.id !== "OFF") {
+        console.log(e.keyCode);
+        pickOperator(key.id);
         updateScreen();
-    });
-    plusBut.addEventListener("click", () => {
-        x = plusBut.id;
-        let chkEnding = objCollector.num1[objCollector.num1.length - 1];
-        chkEnding === "x" || chkEnding === "/" || chkEnding === "+" || chkEnding === "-" || chkEnding === "." ? "Stop" : pickOperator(x);
-        updateScreen();
-    });
-    minusBut.addEventListener("click", () => {
-        x = minusBut.id;
-        let chkEnding = objCollector.num1[objCollector.num1.length - 1];
-        chkEnding === "x" || chkEnding === "/" || chkEnding === "+" || chkEnding === "-" || chkEnding === "." ? "Stop" : pickOperator(x);
-        updateScreen();
-    });
-    decimalBut.addEventListener("click", () => {
-        x = decimalBut.id;
-        let chkEnding = objCollector.num1[objCollector.num1.length - 1];
-        chkEnding === "x" || chkEnding === "/" || chkEnding === "+" || chkEnding === "-" || chkEnding === "." ? "Stop" : pickOperator(x);
-        updateScreen();
-    });
+    } else if (key.id === "enter") {
+        runMultipleOperators();
+    } else if (key.id === "AC") {
+        deleteItems();
+    }
+    else if (key.id === "OFF") {
+        location.reload();
+    }
 }
-operatorsListener();
+
+let key = document.querySelector("button[data-key='17']");
+if (key) {
+    window.addEventListener("keydown", checkKeyCode)
+} else if (!key) {
+    window.removeEventListener("keydown", checkKeyCode)
+}
 
 
 let allButtons = Array.from(document.querySelectorAll("button"));
@@ -50,11 +46,8 @@ allButtons.forEach(button => {
     if (button.textContent === "ON") {
         button.addEventListener("click", switchOn);
     }
-});
-
-allButtons.forEach(buttonItem => {
-    if (buttonItem.textContent === "OFF") {
-        buttonItem.addEventListener("click", () => {
+    else if (button.textContent === "OFF") {
+        button.addEventListener("click", () => {
             location.reload();
         });
     }
@@ -73,55 +66,53 @@ function switchOn() {
     clear.style.display = "inline";
 }
 
+
 let objCollector = {
-    num1: [],
-    num2: []
+    inputs: [],
+    operator: []
 };
 
 
-let sliceIndex;
-let sliceForFirst;
-let sliceForSecond;
-
+let sliceIndex, sliceForFirst, sliceForSecond;
 function pickOperator(x) {
-    objCollector.num1.push(x);
+    objCollector.inputs.push(x);
 }
 
-
 function buttonEvents() {
-    allButtons.forEach(buttText => {
-        x = buttText.textContent;
+    allButtons.forEach(button => {
+        buttonText = button.textContent;
         if (
-            x !== "Enter" &&
-            x !== "ON" &&
-            x !== "OFF" &&
-            x !== "x" &&
-            x !== "-" &&
-            x !== "+" &&
-            x !== "/" &&
-            x !== "." &&
-            x !== "AC"
+            buttonText !== "Enter" &&
+            buttonText !== "ON" &&
+            buttonText !== "OFF" &&
+            buttonText !== "x" &&
+            buttonText !== "-" &&
+            buttonText !== "+" &&
+            buttonText !== "/" &&
+            buttonText !== "." &&
+            buttonText !== "AC"
         ) {
-            buttText.addEventListener("click", () => {
-                x = buttText.textContent;
-                pickOperator(x);
+            button.addEventListener("click", () => {
+                buttonText = button.textContent;
+                pickOperator(buttonText);
                 updateScreen();
             });
-        } else if (x === "Enter") {
-            buttText.addEventListener("click", runMultipleOperators);
-        } else if (x === "AC") {
-            buttText.addEventListener("click", () => {
-                objCollector.num1.pop();
-                updateScreen();
-            });
+        } else if (buttonText === "Enter") {
+            button.addEventListener("click", runMultipleOperators);
+        } else if (buttonText === "AC") {
+            button.addEventListener("click", deleteItems);
         }
     });
 }
+function deleteItems() {
+    objCollector.inputs.pop();
+    updateScreen();
+}
+
 
 let foundDivIndex, foundMulIndex, foundAddIndex, foundSubIndex;
-let secondDigit = "";
-let firstDig;
-let firstDigit;
+let secondDigit, firstDig, firstDigit;
+
 function calculator() {
     multipleOperators();
 
@@ -132,38 +123,36 @@ function calculator() {
         bodmas3();
 
         function bodmas1() {
-            for (let i = 0; i < objCollector.num1.length; i++) {
-                if (objCollector.num1[i] === "/") {
+            for (let i = 0; i < objCollector.inputs.length; i++) {
+                if (objCollector.inputs[i] === "/") {
                     runDiv();
                 }
             }
         }
         function bodmas2() {
-            for (let i = 0; i < objCollector.num1.length; i++) {
-                if (objCollector.num1[i] === "x") {
+            for (let i = 0; i < objCollector.inputs.length; i++) {
+                if (objCollector.inputs[i] === "x") {
                     runMul();
                 }
             }
         }
         function bodmas3() {
-            for (let i = 0; i < objCollector.num1.length; i++) {
-                if (objCollector.num1[i] === "+") {
+            for (let i = 0; i < objCollector.inputs.length; i++) {
+                if (objCollector.inputs[i] === "+") {
                     runAdd();
                 }
             }
         }
         function bodmas4() {
-            for (let i = 0; i < objCollector.num1.length; i++) {
-                if (objCollector.num1[i] === "-") {
+            for (let i = 0; i < objCollector.inputs.length; i++) {
+                if (objCollector.inputs[i] === "-") {
                     runSub();
                 }
             }
         }
 
-
-
         function runDiv() {
-            foundDivIndex = objCollector.num1.indexOf("/");
+            foundDivIndex = objCollector.inputs.indexOf("/");
             if (foundDivIndex !== undefined && foundDivIndex > -1) {
                 getDigits(foundDivIndex);
                 decider();
@@ -171,7 +160,7 @@ function calculator() {
         }
 
         function runMul() {
-            foundMulIndex = objCollector.num1.indexOf("x");
+            foundMulIndex = objCollector.inputs.indexOf("x");
             if (foundMulIndex !== undefined && foundMulIndex > -1) {
                 getDigits(foundMulIndex);
                 decider();
@@ -179,7 +168,7 @@ function calculator() {
         }
 
         function runAdd() {
-            foundAddIndex = objCollector.num1.indexOf("+");
+            foundAddIndex = objCollector.inputs.indexOf("+");
             if (foundAddIndex !== undefined && foundAddIndex > -1) {
                 getDigits(foundAddIndex);
                 decider();
@@ -187,7 +176,7 @@ function calculator() {
         }
 
         function runSub() {
-            foundSubIndex = objCollector.num1.indexOf("-");
+            foundSubIndex = objCollector.inputs.indexOf("-");
             if (foundSubIndex !== undefined && foundSubIndex > -1) {
                 getDigits(foundSubIndex);
                 decider();
@@ -196,12 +185,12 @@ function calculator() {
 
         function getDigits(foundIndex) {
             let check = 0;
-            let len = objCollector.num1.length;
+            let len = objCollector.inputs.length;
             firstDig = "";
             let i = foundIndex;
             let reg = /[^0-9]/g;
             while (true) {
-                if (objCollector.num1[i - 1] == "-" || objCollector.num1[i - 1] == "+" || objCollector.num1[i - 1] == "x" || objCollector.num1[i - 1] == "/") {
+                if (objCollector.inputs[i - 1] == "-" || objCollector.inputs[i - 1] == "+" || objCollector.inputs[i - 1] == "x" || objCollector.inputs[i - 1] == "/") {
                     sliceForFirst = i;
                     break;
                 }
@@ -209,10 +198,9 @@ function calculator() {
                     sliceForFirst = 0;
                     break;
                 }
-                firstDig += objCollector.num1[i - 1];
+                firstDig += objCollector.inputs[i - 1];
                 check++;
-
-                if (!reg.test(objCollector.num1)) {
+                if (!reg.test(objCollector.inputs)) {
                     break;
                 }
                 i--;
@@ -224,11 +212,10 @@ function calculator() {
                 firstDigit = firstDig;
             }
 
-
             secondDigit = "";
             i = foundIndex;
             while (true) {
-                if (objCollector.num1[i + 1] == "-" || objCollector.num1[i + 1] == "+" || objCollector.num1[i + 1] == "x" || objCollector.num1[i + 1] == "/") {
+                if (objCollector.inputs[i + 1] == "-" || objCollector.inputs[i + 1] == "+" || objCollector.inputs[i + 1] == "x" || objCollector.inputs[i + 1] == "/") {
                     sliceForSecond = i;
                     break;
                 }
@@ -236,20 +223,16 @@ function calculator() {
                     sliceForSecond = i;
                     break;
                 }
-                secondDigit += objCollector.num1[i + 1];
-
+                secondDigit += objCollector.inputs[i + 1];
                 i++;
             }
-
-            objCollector.num2 = objCollector.num1[foundIndex];
+            objCollector.operator = objCollector.inputs[foundIndex];
         }
-
     }
-
 }
 
 function updateScreen() {
-    let print = objCollector.num1.join("");
+    let print = objCollector.inputs.join("");
     output.textContent = print;
     result.textContent = "";
 }
@@ -257,13 +240,13 @@ function updateScreen() {
 function decider(arg1, arg2) {
     arg1 = +firstDigit;
     arg2 = +secondDigit;
-    if (objCollector.num2.includes("+")) {
+    if (objCollector.operator.includes("+")) {
         addOperator(arg1, arg2);
-    } else if (objCollector.num2.includes("-")) {
+    } else if (objCollector.operator.includes("-")) {
         minusOperator(arg1, arg2);
-    } else if (objCollector.num2.includes("x")) {
+    } else if (objCollector.operator.includes("x")) {
         timesOperator(arg1, arg2);
-    } else if (objCollector.num2.includes("/")) {
+    } else if (objCollector.operator.includes("/")) {
         divOperator(arg1, arg2);
     }
 }
@@ -287,31 +270,30 @@ function divOperator(arg1, arg2) {
 
 let reslt;
 function updateCollector(arg) {
-    if (arg === Infinity) {
+    if (arg === Infinity || arg === NaN) {
         result.textContent = "Error";
-        objCollector.num1.splice(0);
+        objCollector.inputs.splice(0);
     }
     else {
-        objCollector.num1.splice(sliceForFirst, ((sliceForSecond - sliceForFirst) + 1), arg);
+        objCollector.inputs.splice(sliceForFirst, ((sliceForSecond - sliceForFirst) + 1), arg);
         let reslt = arg;
         if (reslt.toString().length > 12) {
             result.textContent = +reslt.toPrecision(5);
         }
-        result.textContent = arg;
+        else { result.textContent = arg; }
     }
 }
-
 
 function runMultipleOperators() {
     let reg = /[^0-9]/g;
     let i = 0;
     while (true) {
-        if (!reg.test(objCollector.num1)) {
+        if (!reg.test(objCollector.inputs)) {
             break;
         }
-        console.log(objCollector.num1);
+        console.log(objCollector.inputs);
         calculator();
-        console.log(objCollector.num1);
+        console.log(objCollector.inputs);
         i++;
     }
 }

@@ -62,7 +62,19 @@
         font-family: monospace;
         font-weight: bold;
       }
-
+      article {
+        position: absolute;
+        width: 18vw;
+        left: 3%;
+        top: 30%;
+        background-color: rgb(12, 10, 51); 
+        border: 1px solid black;
+      }
+      article,h1,h3  {
+        font-family:'Arial Narrow Bold', sans-serif;
+        font-size: large; 
+        color: white;
+      }
 
       .result{
         overflow: hidden;
@@ -200,6 +212,9 @@
         .calculator {
         height: 430px;
         width: 300px;
+        }
+        article {
+          display: none;
         }
         .output {
         width: 274px;
