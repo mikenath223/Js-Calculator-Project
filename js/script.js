@@ -10,7 +10,13 @@ ops.forEach(item => {
     const x = item.id;
     item.addEventListener("click", () => {
         let chkEnding = objCollector.inputs[objCollector.inputs.length - 1];
-        chkEnding === "x" || chkEnding === "/" || chkEnding === "+" || chkEnding === "-" || chkEnding === "." ? "Stop" : pickOperator(x);
+        let chkStart = objCollector.inputs[0];
+        if (chkEnding === "x" || chkEnding === "/" || chkEnding === "+" || chkEnding === "-" || chkEnding === ".") {
+            "Stop"
+        } else { pickOperator(x) }
+        if (objCollector.inputs[0] === "x" || objCollector.inputs[0] === "/" || objCollector.inputs[0] === "+" || objCollector.inputs[0] === "-" || objCollector.inputs[0] === ".") {
+            objCollector.inputs.splice(0);
+        }
         updateScreen();
     })
 })
@@ -19,26 +25,18 @@ function checkKeyCode(e) {
     switchOn();
     let key = document.querySelector(`button[data-key="${e.keyCode}"]`);
     if (!key) return;
-    if (key.id !== "enter" && key.id !== "ON" && key.id !== "AC" && key.id !== "OFF") {
-        console.log(e.keyCode);
+    if (key.id !== "Enter" && key.id !== "ON" && key.id !== "AC" && key.id !== "OFF") {
         pickOperator(key.id);
         updateScreen();
     } else if (key.id === "enter") {
         runMultipleOperators();
     } else if (key.id === "AC") {
         deleteItems();
-    }
-    else if (key.id === "OFF") {
+    } else if (key.id === "OFF") {
         location.reload();
     }
 }
 
-let key = document.querySelector("button[data-key='17']");
-if (key) {
-    window.addEventListener("keydown", checkKeyCode)
-} else if (!key) {
-    window.removeEventListener("keydown", checkKeyCode)
-}
 
 
 let allButtons = Array.from(document.querySelectorAll("button"));
@@ -52,6 +50,18 @@ allButtons.forEach(button => {
         });
     }
 });
+
+function keySwitchOn() {
+    let key = document.querySelector("button[data-key='17']");
+    if (key) {
+        window.addEventListener("keydown", checkKeyCode);
+    }
+    else if (!key) {
+        window.removeEventListener("keydown", checkKeyCode);
+    }
+}
+keySwitchOn();
+
 
 function switchOn() {
     alert.textContent = "Calculator Powered";
@@ -80,7 +90,7 @@ function pickOperator(x) {
 
 function buttonEvents() {
     allButtons.forEach(button => {
-        buttonText = button.textContent;
+        const buttonText = button.id;
         if (
             buttonText !== "Enter" &&
             buttonText !== "ON" &&
@@ -93,7 +103,6 @@ function buttonEvents() {
             buttonText !== "AC"
         ) {
             button.addEventListener("click", () => {
-                buttonText = button.textContent;
                 pickOperator(buttonText);
                 updateScreen();
             });
@@ -270,7 +279,7 @@ function divOperator(arg1, arg2) {
 
 let reslt;
 function updateCollector(arg) {
-    if (arg === Infinity || arg === NaN) {
+    if (arg === Infinity || typeof arg === NaN) {
         result.textContent = "Error";
         objCollector.inputs.splice(0);
     }
@@ -291,9 +300,7 @@ function runMultipleOperators() {
         if (!reg.test(objCollector.inputs)) {
             break;
         }
-        console.log(objCollector.inputs);
         calculator();
-        console.log(objCollector.inputs);
         i++;
     }
 }
