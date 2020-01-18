@@ -10,7 +10,7 @@ let ops = [...document.querySelectorAll(".op")];
 
 ops.forEach(item => {
   const x = item.id;
-  item.addEventListener("click", (x) => {
+  item.addEventListener("click", () => {
     let chkEnding = objCollector.inputs[objCollector.inputs.length - 1];
     let chkStart = objCollector.inputs[0];
     if (
@@ -20,7 +20,7 @@ ops.forEach(item => {
       chkEnding === "-" ||
       chkEnding === "."
     ) {
-      ("Stop");
+      return;
     } else {
       pickOperator(x);
     }
@@ -84,13 +84,14 @@ allOpsButtons.forEach(button => {
 function switchOn() {
   alert.textContent = "Calculator Powered";
   allOpsButtons.forEach(button => {
-    button.style.color = "white";
+    button.style.color = "green";
   });
   output.style.backgroundColor = "gray";
   result.style.backgroundColor = "gray";
   setTimeout(() => (alert.style.display = "none"), 1200);
   powerON.style.display = "none";
   clear.style.display = "inline";
+  buttonEvents()
 }
 
 let objCollector = {
