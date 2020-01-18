@@ -1,304 +1,332 @@
 @import url("https://fonts.googleapis.com/css?family=Lobster&display=swap");
 
-      * {
-        margin: 0;
-        padding: 0;
-        font-family: "Lobster", cursive;
-        font-size: medium;
-        text-align: center;
-      }
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Lobster", cursive;
+  font-size: medium;
+  text-align: center;
+}
 
-      html,
-      body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-        background: -webkit-linear-gradient(
-          left,
-          rgb(165, 7, 144),
-          rgba(155, 20, 27, 0.76)
-        );
-      }
-      .calculator {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
-        padding: 20px;
-        background-color: slategray;
-        height: 500px;
-        width: 350px;
-        margin: 0 auto;
-        border-top-right-radius: 270px 100px;
-        border-top-left-radius: 270px 100px;
-        border-bottom-right-radius: 35px;
-        border-bottom-left-radius: 35px;
-      }
-      .output {
-        width: 320px;
-        height: 120px;
-        margin: 10px auto;
-        background-color: whitesmoke;
-        border-top-right-radius: 270px 100px;
-        border-top-left-radius: 270px 100px;
-      }
-      .inner{
-        box-sizing: border-box;
-        overflow: hidden;
-        margin-top: 35px;    
-        margin-left: 20px;    
-        border: 1px solid black;
-        width: 280px;
-        height: 35px;
-        background-color: white;
-        font-size: 25px;
-        letter-spacing: 2px;
-        padding-bottom: 5px;
-        text-align: start;
-        padding-left: 10px;
-      }
-      .alert {
-        color: red;
-        text-align: start;
-        font-family: monospace;
-        font-weight: bold;
-      }
-      article {
-        position: absolute;
-        width: 18vw;
-        left: 3%;
-        top: 30%;
-        background-color: rgb(12, 10, 51); 
-        border: 1px solid silver;
-        padding: 5px;
-      }
-      article,h1,h3  {
-        font-family:'Arial Narrow Bold', sans-serif;
-        font-size: large; 
-        color: white;
-        margin-bottom: 3px;
-        border-bottom: 3px solid gray;
-      }
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background:
+    -webkit-linear-gradient(
+      left,
+      rgb(165, 7, 144),
+      rgba(155, 20, 27, 0.76)
+    );
+}
 
-      article h1 {
-        background-color: azure;
-        color: gray;
-        margin-bottom: 10px;
-        border: 2px solid maroon;
-      }
+.calculator {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 20px;
+  background-color: slategray;
+  height: 500px;
+  width: 350px;
+  margin: 0 auto;
+  border-top-right-radius: 270px 100px;
+  border-top-left-radius: 270px 100px;
+  border-bottom-right-radius: 35px;
+  border-bottom-left-radius: 35px;
+}
 
-      .result{
-        overflow: hidden;
-        color: red;
-        box-sizing: border-box;
-        height: 35px;
-        width: 280px;
-        margin-left: 20px;
-        border: 2px solid maroon;
-        font-size: 30px;
-        font-family: Arial;
-        font-weight: bold;
-        letter-spacing: 4px;
-        text-align: start;
-        padding-left: 10px;
-      }
-      .banner {
-        margin: 0 auto;
-      }
-      .banner > p {
-        display: inline-block;
-        padding: 10px;
-        background-color: black;
-        color: white;
-        margin-right: 10px;
-        border-radius: 40px 5px;
-      }
-      .power {
-        background-color: red;
-        color: white;
-        border-style: none;
-        border-radius: 50%;
-        border: 2px dotted wheat;
-        width: 45px;
-        height: 45px;
-        margin-left: 3px;
-        font-family: Arial;
-        font-weight: bold;
-      }
+.output {
+  width: 320px;
+  height: 120px;
+  margin: 10px auto;
+  background-color: whitesmoke;
+  border-top-right-radius: 270px 100px;
+  border-top-left-radius: 270px 100px;
+}
 
-      .clear {
-        display: none;
-        background-color: black;
-        border-style: none;
-        border-radius: 50%;
-        border: 2px dotted wheat;
-        width: 45px;
-        height: 45px;
-        margin-left: 3px;
-        font-weight: bold;
-        font-family: Arial;
-        font-size: large;
-      }
+.inner {
+  box-sizing: border-box;
+  overflow: hidden;
+  margin-top: 35px;
+  margin-left: 20px;
+  border: 1px solid black;
+  width: 280px;
+  height: 35px;
+  background-color: white;
+  font-size: 25px;
+  letter-spacing: 2px;
+  padding-bottom: 5px;
+  text-align: start;
+  padding-left: 10px;
+}
 
-      header > p {
-        background-color: rgb(22, 37, 65);
-        color: white;
-        margin: 20px;
-        border: 5px solid whitesmoke;
-        word-spacing: 3px;
-      }
-      span {
-        color: red;
-        font-family: sans-serif;
-      }
-      p {
-        color: darkslategray;
-        font-family: "Lobster", cursive;
-        font-size: 20px;
-      }
-      section {
-        width: 400px;
-        height: 550px;
-        margin: 0 auto;
-        border: 2px solid black;
-        background-color: coral;
-        border-top-right-radius: 270px 100px;
-        border-top-left-radius: 270px 100px;
-        border-bottom-right-radius: 35px;
-        border-bottom-left-radius: 35px;
-      }
+.alert {
+  color: red;
+  text-align: start;
+  font-family: monospace;
+  font-weight: bold;
+}
 
-      #operators {
-        width: 320px;
-        height: 300px;
-        margin: 10px auto;
-        padding: 2px;
-        border: 1px solid black;
-        border-bottom-right-radius: 35px;
-        border-bottom-left-radius: 35px;
-      }
-      
-      #operators > button {
-        flex-basis: auto;
-        background-color: darksalmon;
-        color: white;
-        width: 60px;
-        height: 50px;
-        margin: 4px;
-        font-size: 28px;
-        border-style: none;
-        border: 1px dashed maroon;
-        box-shadow: 1px 2px 30px 1px rgba(0, 0, 0, 0.527);
-      }
-    
-      #operators > .op {
-        background-color: rgba(15, 9, 9, 0.719);
-        border-radius: 20px;
-        border: 3px solid red;
-      }
+article {
+  position: absolute;
+  width: 18vw;
+  left: 3%;
+  top: 30%;
+  background-color: rgb(12, 10, 51);
+  border: 1px solid silver;
+  padding: 5px;
+}
 
-      #operators > button:hover {
-        color:green;
-        background-color: whitesmoke;
-      }
+article,
+h1,
+h3 {
+  font-family: 'Arial Narrow Bold', sans-serif;
+  font-size: large;
+  color: white;
+  margin-bottom: 3px;
+  border-bottom: 3px solid gray;
+}
 
-      #operators > button:nth-last-child(4) {
-        width: 150px;
-      }
+article h1 {
+  background-color: azure;
+  color: gray;
+  margin-bottom: 10px;
+  border: 2px solid maroon;
+}
 
-      #operators > button:last-child {
-        width: 250px;
-        height: 63px;
-        border-radius: 50px;
-        background-color: crimson;
-        color:white;
-      }
+.result {
+  overflow: hidden;
+  color: red;
+  box-sizing: border-box;
+  height: 35px;
+  width: 280px;
+  margin-left: 20px;
+  border: 2px solid maroon;
+  font-size: 30px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  letter-spacing: 4px;
+  text-align: start;
+  padding-left: 10px;
+}
 
-      #operators > button:last-child:hover {
-        border:2px solid green;
-      }
+.banner {
+  margin: 0 auto;
+}
 
-      
-      @media screen and (max-width:600px) {
-        .calculator {
-        height: 430px;
-        width: 300px;
-        }
-        article {
-          display: none;
-        }
-        .output {
-        width: 274px;
-        height: 102px;
-        margin: 8px auto;
-        }
-        .inner {
-        margin-top: 30px;    
-        margin-left: 17px;    
-        width: 240px;
-        height: 30px;
-        font-size: 20px;
-        letter-spacing: 0.5px;
-        padding-bottom: 4px;
-        padding-left: 8.5px;
-        }
-        .result{
-        height: 30px;
-        width: 240px;
-        margin-left: 17px;
-        margin-left: 17px;
-        border: 1.5px solid maroon;
-        font-size: 25.5px;
-        letter-spacing: 3.5px;
-        padding-left: 8.5px;
-        }
-        .banner > p {
-        padding: 8.5px;
-        margin-right: 8.5px;
-        }
-        .power {
-        width: 38px;
-        height: 38px;
-        margin-left: 2.5px;
-        }
-        .clear {
-        width: 38px;
-        height: 38px;
-        margin-left: 2.5px;
-        font-size: medium;
-        }
-        header > p {
-        margin: 17px;
-        border: 4px solid whitesmoke;
-        word-spacing: 2.5px;
-        }
-        p {
-        font-size: 17px;
-        }
-        section {
-        width: 344px;
-        height: 473px;
-        border: 1.5px solid black;
-        }
-        #operators {
-        width: 275px;
-        height: 258px;
-        margin: 8.5px auto;
-        padding: 1.5px;
-        }
-        #operators > button {
-        width: 51px;
-        height: 43px;
-        margin: 3px;
-        font-size: 24px;
-        }
-        #operators > .op {
-        border: 2.5px solid red;
-        }
-        #operators > button:nth-last-child(4) {
-        width: 129px;
-        }
-        #operators > button:last-child {
-        width: 215px;
-        height: 54px;
-        }
-      }
+p {
+  color: darkslategray;
+  font-family: "Lobster", cursive;
+  font-size: 20px;
+}
+
+header > p {
+  background-color: rgb(22, 37, 65);
+  color: white;
+  margin: 20px;
+  border: 5px solid whitesmoke;
+  word-spacing: 3px;
+}
+
+.banner > p {
+  display: inline-block;
+  padding: 10px;
+  background-color: black;
+  color: white;
+  margin-right: 10px;
+  border-radius: 40px 5px;
+}
+
+.power {
+  background-color: red;
+  color: white;
+  border-style: none;
+  border-radius: 50%;
+  border: 2px dotted wheat;
+  width: 45px;
+  height: 45px;
+  margin-left: 3px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+
+.clear {
+  display: none;
+  background-color: black;
+  border-style: none;
+  border-radius: 50%;
+  border: 2px dotted wheat;
+  width: 45px;
+  height: 45px;
+  margin-left: 3px;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: large;
+}
+
+span {
+  color: red;
+  font-family: sans-serif;
+}
+
+section {
+  width: 400px;
+  height: 550px;
+  margin: 0 auto;
+  border: 2px solid black;
+  background-color: coral;
+  border-top-right-radius: 270px 100px;
+  border-top-left-radius: 270px 100px;
+  border-bottom-right-radius: 35px;
+  border-bottom-left-radius: 35px;
+}
+
+#operators {
+  width: 320px;
+  height: 300px;
+  margin: 10px auto;
+  padding: 2px;
+  border: 1px solid black;
+  border-bottom-right-radius: 35px;
+  border-bottom-left-radius: 35px;
+}
+
+#operators > button {
+  flex-basis: auto;
+  background-color: darksalmon;
+  color: white;
+  width: 60px;
+  height: 50px;
+  margin: 4px;
+  font-size: 28px;
+  border-style: none;
+  border: 1px dashed maroon;
+  box-shadow: 1px 2px 30px 1px rgba(0, 0, 0, 0.527);
+}
+
+#operators > .op {
+  background-color: rgba(15, 9, 9, 0.719);
+  border-radius: 20px;
+  border: 3px solid red;
+}
+
+#operators > button:hover {
+  color: green;
+  background-color: whitesmoke;
+}
+
+#operators > button:nth-last-child(4) {
+  width: 150px;
+}
+
+#operators > button:last-child {
+  width: 250px;
+  height: 63px;
+  border-radius: 50px;
+  background-color: crimson;
+  color: white;
+}
+
+#operators > button:last-child:hover {
+  border: 2px solid green;
+}
+
+@media screen and (max-width: 600px) {
+  .calculator {
+    height: 430px;
+    width: 300px;
+  }
+
+  article {
+    display: none;
+  }
+
+  .output {
+    width: 274px;
+    height: 102px;
+    margin: 8px auto;
+  }
+
+  .inner {
+    margin-top: 30px;
+    margin-left: 17px;
+    width: 240px;
+    height: 30px;
+    font-size: 20px;
+    letter-spacing: 0.5px;
+    padding-bottom: 4px;
+    padding-left: 8.5px;
+  }
+
+  .result {
+    height: 30px;
+    width: 240px;
+    margin-left: 17px;
+    border: 1.5px solid maroon;
+    font-size: 25.5px;
+    letter-spacing: 3.5px;
+    padding-left: 8.5px;
+  }
+
+  p {
+    font-size: 17px;
+  }
+
+  header > p {
+    margin: 17px;
+    border: 4px solid whitesmoke;
+    word-spacing: 2.5px;
+  }
+
+  .banner > p {
+    padding: 8.5px;
+    margin-right: 8.5px;
+  }
+
+  .power {
+    width: 38px;
+    height: 38px;
+    margin-left: 2.5px;
+  }
+
+  .clear {
+    width: 38px;
+    height: 38px;
+    margin-left: 2.5px;
+    font-size: medium;
+  }
+
+  section {
+    width: 344px;
+    height: 473px;
+    border: 1.5px solid black;
+  }
+
+  #operators {
+    width: 275px;
+    height: 258px;
+    margin: 8.5px auto;
+    padding: 1.5px;
+  }
+
+  #operators > button {
+    width: 51px;
+    height: 43px;
+    margin: 3px;
+    font-size: 24px;
+  }
+
+  #operators > .op {
+    border: 2.5px solid red;
+  }
+
+  #operators > button:nth-last-child(4) {
+    width: 129px;
+  }
+
+  #operators > button:last-child {
+    width: 215px;
+    height: 54px;
+  }
+}
