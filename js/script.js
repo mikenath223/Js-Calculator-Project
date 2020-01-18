@@ -14,68 +14,64 @@ ops.forEach(item => {
         if (chkEnding === "x" || chkEnding === "/" || chkEnding === "+" || chkEnding === "-" || chkEnding === ".") {
             "Stop"
         } else { pickOperator(x) }
-        if (objCollector.inputs[0] === "x" || objCollector.inputs[0] === "/" || objCollector.inputs[0] === "+" || objCollector.inputs[0] === "-" || objCollector.inputs[0] === ".") {
-            objCollector.inputs.splice(0);
+        if (chkStart === "x" || chkStart === "/" || chkStart === "+" || chkStart === "-" || chkStart === ".") {
+            chkStart.splice(0);
         }
         updateScreen();
     })
 })
 
-function checkKeyCode(e) {
-    switchOn();
-    let key = document.querySelector(`button[data-key="${e.keyCode}"]`);
+
+function feedInput(e) {
+    const key = document.querySelector(`button[data-key="${e.keyCode}"]`);
+    const controls = ["Enter", "ON", "AC", "OFF"];
     if (!key) return;
-    if (key.id !== "Enter" && key.id !== "ON" && key.id !== "AC" && key.id !== "OFF") {
-        pickOperator(key.id);
-        updateScreen();
-    } else if (key.id === "enter") {
-        runMultipleOperators();
-    } else if (key.id === "AC") {
-        deleteItems();
-    } else if (key.id === "OFF") {
-        location.reload();
-    }
+    !controls.includes(key.innerText) ? wrapOpKeys(key.innerText) : wrapCtrlKeys(key.innerText);
 }
+window.addEventListener('keydown', feedInput);
 
+function wrapOpKeys(text) {
+    pickOperator(text);
+    updateScreen();
+};
 
+function wrapCtrlKeys(text) {
+    switch (text) {
+        case 'Enter': runMultipleOperators();
+        break;
+        case 'AC' : deleteItems();
+        break;
+        case 'OFF' : toggleSwitch(null, "Calculator Off", "white", "whitesmoke", "inline", "none");
+        break;
+        case 'ON' : toggleSwitch(null);
+        break;
+    }
+};
 
 let allButtons = Array.from(document.querySelectorAll("button"));
 allButtons.forEach(button => {
     if (button.textContent === "ON") {
-        button.addEventListener("click", switchOn);
+        button.addEventListener("click", toggleSwitch);
     }
-    else if (button.textContent === "OFF") {
+    else if(button.textContent === "OFF") {
         button.addEventListener("click", () => {
             location.reload();
         });
     }
 });
 
-function keySwitchOn() {
-    let key = document.querySelector("button[data-key='17']");
-    if (key) {
-        window.addEventListener("keydown", checkKeyCode);
-    }
-    else if (!key) {
-        window.removeEventListener("keydown", checkKeyCode);
-    }
-}
-keySwitchOn();
 
-
-function switchOn() {
-    alert.textContent = "Calculator Powered";
+function toggleSwitch(e, powerText = "Calculator Powered", buttonColor = "white", screenCol = "gray", onButtonDisplay = "none", clearButDisplay = "inline") {
+    alert.textContent = powerText;
     allButtons.forEach(button => {
-        button.style.color = "green";
+        button.style.color = buttonColor;
     });
-    output.style.backgroundColor = "gray";
-    result.style.backgroundColor = "gray";
+    output.style.backgroundColor = screenCol;
+    result.style.backgroundColor = screenCol;
     setTimeout(() => (alert.style.display = "none"), 1200);
-    buttonEvents();
-    powerON.style.display = "none";
-    clear.style.display = "inline";
+    powerON.style.display = onButtonDisplay;
+    clear.style.display = clearButDisplay;
 }
-
 
 let objCollector = {
     inputs: [],
@@ -121,6 +117,7 @@ function deleteItems() {
 
 let foundDivIndex, foundMulIndex, foundAddIndex, foundSubIndex;
 let secondDigit, firstDig, firstDigit;
+
 
 function calculator() {
     multipleOperators();
@@ -295,12 +292,10 @@ function updateCollector(arg) {
 
 function runMultipleOperators() {
     let reg = /[^0-9]/g;
-    let i = 0;
     while (true) {
         if (!reg.test(objCollector.inputs)) {
             break;
         }
         calculator();
-        i++;
     }
 }

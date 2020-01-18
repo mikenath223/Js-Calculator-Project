@@ -68,12 +68,22 @@
         left: 3%;
         top: 30%;
         background-color: rgb(12, 10, 51); 
-        border: 1px solid black;
+        border: 1px solid silver;
+        padding: 5px;
       }
       article,h1,h3  {
         font-family:'Arial Narrow Bold', sans-serif;
         font-size: large; 
         color: white;
+        margin-bottom: 3px;
+        border-bottom: 3px solid gray;
+      }
+
+      article h1 {
+        background-color: azure;
+        color: gray;
+        margin-bottom: 10px;
+        border: 2px solid maroon;
       }
 
       .result{
