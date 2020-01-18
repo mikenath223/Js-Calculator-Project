@@ -6,37 +6,41 @@ let powerON = document.querySelector("#ON");
 let clear = document.querySelector(".clear");
 let ops = [...document.querySelectorAll(".op")];
 
-
+function preventDupes(x) {
+  let chkEnding = objCollector.inputs[objCollector.inputs.length - 1];
+  let chkStart = objCollector.inputs[0];
+  chkNum = isNaN(+x);
+  if (
+    (chkEnding === "x" ||
+      chkEnding === "/" ||
+      chkEnding === "+" ||
+      chkEnding === "-" ||
+      chkEnding === ".") &&
+    chkNum
+  ) {
+    ("Stop");
+  } else {
+    pickOperator(x);
+  }
+  if (
+    chkStart === "x" ||
+    chkStart === "/" ||
+    chkStart === "+" ||
+    chkStart === "-" ||
+    chkStart === "."
+  ) {
+    objCollector.inputs.splice(0);
+    updateScreen();
+  }
+  updateScreen();
+}
 
 ops.forEach(item => {
   const x = item.id;
   item.addEventListener("click", () => {
-    let chkEnding = objCollector.inputs[objCollector.inputs.length - 1];
-    let chkStart = objCollector.inputs[0];
-    if (
-      chkEnding === "x" ||
-      chkEnding === "/" ||
-      chkEnding === "+" ||
-      chkEnding === "-" ||
-      chkEnding === "."
-    ) {
-      return;
-    } else {
-      pickOperator(x);
-    }
-    if (
-      chkStart === "x" ||
-      chkStart === "/" ||
-      chkStart === "+" ||
-      chkStart === "-" ||
-      chkStart === "."
-    ) {
-      chkStart.splice(0);
-    }
-    updateScreen();
+    preventDupes(x);
   });
 });
-
 
 function feedInput(e) {
   const key = document.querySelector(`button[data-key="${e.keyCode}"]`);
@@ -49,8 +53,7 @@ function feedInput(e) {
 window.addEventListener("keydown", feedInput);
 
 function wrapOpKeys(text) {
-  pickOperator(text);
-  updateScreen();
+  preventDupes(text);
 }
 
 function wrapCtrlKeys(text) {
@@ -91,7 +94,7 @@ function switchOn() {
   setTimeout(() => (alert.style.display = "none"), 1200);
   powerON.style.display = "none";
   clear.style.display = "inline";
-  buttonEvents()
+  buttonEvents();
 }
 
 let objCollector = {
@@ -320,7 +323,7 @@ function updateCollector(arg) {
     // if (reslt.toString().length > 12) {
     //   result.textContent = +reslt.toPrecision(5);
     // } else {
-      result.textContent = arg;
+    result.textContent = arg;
     // }
   }
 }
