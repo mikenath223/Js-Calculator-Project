@@ -1,4 +1,3 @@
-[![Contributors][contributors-shield]][contributors-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 
@@ -63,7 +62,7 @@
 
 # License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details 
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/mikenath223/Js-Calculator-Project/blob/master/LICENSE) file for details.
 
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
@@ -75,4 +74,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 [issues-shield]: https://img.shields.io/github/issues/mikenath223/Js-Calculator-Project
 [issues-url]: https://github.com/mikenath223/Js-Calculator-Project/issues
 [license-shield]: https://img.shields.io/github/license/mikenath223/Js-Calculator-Project
-[license-url]: https://github.com/mikenath223/Js-Calculator-Project/blob/master/LICENSE.txt
+[license-url]: https://github.com/mikenath223/Js-Calculator-Project/blob/master/LICENSE
