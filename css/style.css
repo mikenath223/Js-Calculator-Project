@@ -66,6 +66,8 @@ body {
   text-align: start;
   font-family: monospace;
   font-weight: bold;
+  border: none;
+  font-size: 20px;
 }
 
 article {
