@@ -74,4 +74,4 @@ This project is licensed under the MIT License - see the [LICENSE](https://githu
 [issues-shield]: https://img.shields.io/github/issues/mikenath223/Js-Calculator-Project
 [issues-url]: https://github.com/mikenath223/Js-Calculator-Project/issues
 [license-shield]: https://img.shields.io/github/license/mikenath223/Js-Calculator-Project
-[license-url]: https://github.com/mikenath223/Js-Calculator-Project/blob/master/LICENSE
+[license-url]: https://github.com/mikenath223/Js-Calculator-Project/blob/master/LICENSE.txt
