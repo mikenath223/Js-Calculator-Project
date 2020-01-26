@@ -332,3 +332,46 @@ section {
     height: 54px;
   }
 }
+
+
+@media screen and (max-width: 350px) {
+  .calculator {
+    width: 250px;
+    height: 400px;
+  }
+
+  .output {
+    width: 230px;
+  }
+
+  .inner {
+    width: 200px;
+  }
+
+  .result {
+    width: 200px;
+  }
+
+  section {
+    width: 310px;
+    height: 450px;
+  }
+
+  #operators {
+    width: 230px;
+  }
+
+  #operators > button {
+    width: 40px;
+    height: 37px;
+  }
+
+  #operators > button:nth-last-child(4) {
+    width: 120px;
+  }
+
+  #operators > button:last-child {
+    width: 200px;
+    height: 45px;
+  }
+}
