@@ -38,7 +38,8 @@
 - Stickler css linter
 
 # Get Started
-- Checkout the project the project at the live version link
+- Clone the repo to your local machine.
+- Open the index.html file on your browser and use.
 
 # Features
 
@@ -53,12 +54,14 @@
 - Passion for code 💜
 - `HTML5`
 - `CSS3`
+- `JS (ES6)`
 - `vscode editor` with _HTML5_ and _CSS3_ extensions
 - Windows OS
 
 # Author
-
-* [Ukeje Michgolden](https://github.com/mikenath223)
+Ukeje Michgolden
+* [LinkedIn](https://ng.linkedin.com/in/michgolden-ukeje-73b01614b)
+* [Twitter](https://twitter.com/Michgolden_Nath)
 
 # License
 
