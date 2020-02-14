@@ -335,6 +335,9 @@ section {
 
 
 @media screen and (max-width: 350px) {
+  body {
+    overflow-x: hidden;
+  }
   .calculator {
     width: 250px;
     height: 400px;

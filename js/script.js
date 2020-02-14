@@ -319,12 +319,7 @@ function updateCollector(arg) {
       sliceForSecond - sliceForFirst + 1,
       arg
     );
-    let reslt = arg;
-    // if (reslt.toString().length > 12) {
-    //   result.textContent = +reslt.toPrecision(5);
-    // } else {
     result.textContent = arg;
-    // }
   }
 }
 
