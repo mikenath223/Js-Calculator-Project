@@ -43,7 +43,7 @@
 
 # Features
 
-* Followed the [tutotial](https://www.theodinproject.com/courses/web-development-101/lessons/calculator)
+* Calculator built with JAVASCRIPT, HTMLS, CSS3
 * Included numpad keyboard functionality.
 
 ![screenshot](./docs/calculator-screenshot.png)
