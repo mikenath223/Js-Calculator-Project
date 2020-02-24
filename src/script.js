@@ -1,22 +1,93 @@
 const selectQuery = query => document.querySelector(query);
 
-const banner = selectQuery('.banner');
 const output = selectQuery('.inner');
 const result = selectQuery('.result');
 const alert = selectQuery('.alert');
 const powerON = selectQuery('#ON');
 const clear = selectQuery('.clear');
+const allScreenButtons = Array.from(document.querySelectorAll('button'));
+const inputsCollector = [];
+
+function updateScreen() {
+  const print = inputsCollector.join('');
+  output.textContent = print;
+  result.textContent = '';
+}
+
+function pickOperator(x) {
+  inputsCollector.push(x);
+}
+
+function getOperators(buttonText) {
+  const regex = /x|\+|\.|-|\//;
+  if (
+    inputsCollector.length >= 1
+    && !regex.test(inputsCollector[inputsCollector.length - 1])
+  ) {
+    pickOperator(buttonText);
+    updateScreen();
+  }
+}
+
+function updateCollector(arg) {
+  if (arg === Infinity || Number.isNaN(arg)) {
+    result.textContent = 'Error';
+    inputsCollector.splice(0);
+  } else {
+    result.textContent = arg;
+    inputsCollector.splice(0);
+    inputsCollector.push(arg);
+  }
+}
+
+function calculator() {
+  let joinedInputs = inputsCollector.join('');
+  joinedInputs = joinedInputs.replace(/x/g, '*').replace(/÷/g, '/');
+  const result = eval(joinedInputs);
+  updateCollector(result);
+}
+
+function switchOn() {
+  alert.textContent = 'Calculator Powered';
+  allScreenButtons.forEach(button => {
+    button.style.color = 'green';
+  });
+  output.style.backgroundColor = 'gray';
+  result.style.backgroundColor = 'gray';
+  setTimeout(() => {
+    alert.style.display = 'none';
+  }, 1200);
+  powerON.style.display = 'none';
+  clear.style.display = 'inline';
+}
 powerON.onclick = switchOn;
 
-const feedInput = e => {
-  const keyboardInput = document.querySelector(`button[data-key="${e.keyCode}"]`);
-  const controls = ['Enter', 'ON', 'AC', 'OFF'];
-  if (!keyboardInput) return;
-  !controls.includes(keyboardInput.innerText)
-    ? wrapOpKeys(keyboardInput.innerText)
-    : wrapCtrlKeys(keyboardInput.innerText);
-};
-window.addEventListener('keydown', feedInput);
+function deleteItems() {
+  inputsCollector.pop();
+  updateScreen();
+}
+
+allScreenButtons.forEach(button => {
+  const buttonText = button.id;
+  const regexButtons = /\d/;
+
+  button.addEventListener('click', () => {
+    if (regexButtons.test(+buttonText)) {
+      pickOperator(buttonText);
+      updateScreen();
+    } else if (buttonText === 'Enter') {
+      calculator();
+    } else if (buttonText === 'AC') {
+      deleteItems();
+    } else if (buttonText === 'ON') {
+      switchOn();
+    } else if (buttonText === 'OFF') {
+      window.location.reload();
+    } else {
+      getOperators(buttonText);
+    }
+  });
+});
 
 function wrapOpKeys(text) {
   const regexNumbers = /[^0-9]/;
@@ -37,97 +108,24 @@ function wrapCtrlKeys(text) {
       deleteItems();
       break;
     case 'OFF':
-      location.reload();
+      window.location.reload();
       break;
-    case 'ON':
+    default:
       switchOn();
-      break;
   }
 }
 
-const allScreenButtons = Array.from(document.querySelectorAll('button'));
+function feedInput(e) {
+  const keyboardInput = document.querySelector(
+    `button[data-key="${e.keyCode}"]`,
+  );
+  if (!keyboardInput) return;
 
-function switchOn() {
-  alert.textContent = 'Calculator Powered';
-  allScreenButtons.forEach(button => {
-    button.style.color = 'green';
-  });
-  output.style.backgroundColor = 'gray';
-  result.style.backgroundColor = 'gray';
-  setTimeout(() => (alert.style.display = 'none'), 1200);
-  powerON.style.display = 'none';
-  clear.style.display = 'inline';
-  buttonEvents();
-}
-
-const objCollector = {
-  inputs: [],
-};
-
-function pickOperator(x) {
-  objCollector.inputs.push(x);
-}
-
-function buttonEvents() {
-  allScreenButtons.forEach(button => {
-    const buttonText = button.id;
-    const regexButtons = /\d/;
-
-    button.addEventListener('click', () => {
-      if (regexButtons.test(+buttonText)) {
-        pickOperator(buttonText);
-        updateScreen();
-      } else if (buttonText === 'Enter') {
-        calculator();
-      } else if (buttonText === 'AC') {
-        deleteItems();
-      } else if (buttonText === 'ON') {
-        switchOn;
-      } else if (buttonText === 'OFF') {
-        location.reload();
-      } else {
-        getOperators(buttonText);
-      }
-    });
-  });
-}
-
-function getOperators(buttonText) {
-  const regex = /x|\+|\.|\-|\//;
-  if (
-    objCollector.inputs.length >= 1
-    && !regex.test(objCollector.inputs[objCollector.inputs.length - 1])
-  ) {
-    pickOperator(buttonText);
-    updateScreen();
-  }
-}
-
-function deleteItems() {
-  objCollector.inputs.pop();
-  updateScreen();
-}
-
-function calculator() {
-  let joinedInputs = objCollector.inputs.join('');
-  joinedInputs = joinedInputs.replace(/x/g, '*').replace(/÷/g, '/');
-  const result = eval(joinedInputs);
-  updateCollector(result);
-}
-
-function updateScreen() {
-  const print = objCollector.inputs.join('');
-  output.textContent = print;
-  result.textContent = '';
-}
-
-function updateCollector(arg) {
-  if (arg === Infinity || typeof arg === NaN) {
-    result.textContent = 'Error';
-    objCollector.inputs.splice(0);
+  const controls = ['Enter', 'ON', 'AC', 'OFF'];
+  if (!controls.includes(keyboardInput.innerText)) {
+    wrapOpKeys(keyboardInput.innerText);
   } else {
-    result.textContent = arg;
-    objCollector.inputs.splice(0);
-    objCollector.inputs.push(arg);
+    wrapCtrlKeys(keyboardInput.innerText);
   }
 }
+window.addEventListener('keydown', feedInput);
