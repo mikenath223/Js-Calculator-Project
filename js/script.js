@@ -109,7 +109,9 @@ function deleteItems() {
 }
 
 function calculator() {
-  let result = eval(objCollector.inputs.join(""));
+  let joinedInputs = objCollector.inputs.join("");
+  joinedInputs = joinedInputs.replace(/x/g, '*').replace(/÷/g, '/');
+  let result = eval(joinedInputs);
   updateCollector(result);
 }
 
@@ -120,7 +122,6 @@ function updateScreen() {
 }
 
 function updateCollector(arg) {
-  console.log(objCollector.inputs);
   if (arg === Infinity || typeof arg === NaN) {
     result.textContent = "Error";
     objCollector.inputs.splice(0);
