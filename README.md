@@ -34,8 +34,8 @@
 
 # Validations
 
-- W3c Html validator - https://validator.w3.org/
-- Stickler css linter
+- W3C HTML Validator - https://validator.w3.org/
+- Stickler CSS linter
 
 # Get Started
 - Clone the repo to your local machine.
@@ -43,7 +43,7 @@
 
 # Features
 
-* Calculator built with JAVASCRIPT, HTMLS, CSS3
+* Calculator built with JavaScript, HTML, CSS
 * Included numpad keyboard functionality.
 
 ![screenshot](./docs/calculator-screenshot.png)
@@ -52,16 +52,20 @@
 ## Built With
 
 - Passion for code 💜
-- `HTML5`
-- `CSS3`
-- `JS (ES6)`
+- `HTML`
+- `CSS`
+- `JavaScript`
 - `vscode editor` with _HTML5_ and _CSS3_ extensions
 - Windows OS
 
 # Author
-Ukeje Michgolden
-* [LinkedIn](https://ng.linkedin.com/in/michgolden-ukeje-73b01614b)
-* [Twitter](https://twitter.com/Michgolden_Nath)
+
+**Michgolden Ukeje**
+
+- Github: [@mikenath223](https://github.com/mikenath223)
+- Twitter: [@Michgolden_Nath](https://twitter.com/MichgoldenU)
+- Linkedin: [Ukeje Michgolden](https://https://www.linkedin.com/in/michgoldenukeje/)
+  <br />
 
 # License
 
